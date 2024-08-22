@@ -1,0 +1,11 @@
+.pri  {
+    background-color: aquamarine;
+}
+
+.seg, .terc {
+    background-color: gray;
+}
+
+fieldset {
+    background-color: rgb(212, 210, 201);
+}
