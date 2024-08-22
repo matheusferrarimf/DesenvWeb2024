@@ -1,13 +1,23 @@
+li {
+list-style: none;
+}
+
 .pri {
     background-color: aqua;
+    border:solid 5px;
+    border-radius: 10px;
 }
 
 .seg {
     background-color: gray;
+    border:solid 5px;
+    border-radius: 10px;
 }
 
 .terc {
     background-color: gray;
+    border:solid 5px;
+    border-radius: 10px;
 }
 
 .container {
@@ -24,4 +34,33 @@
 
 fieldset {
     border:none;
+}
+
+.pri:hover {
+    background-color: red;
+    color: black;
+}
+
+.seg:hover {
+    background-color: red;
+    color: black;
+}
+
+.terc:hover {
+    background-color: red;
+    color: black;
+    
+}
+
+.botoes {
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.botoes:hover {
+  background-color: #04AA6D; /* Green */
+  color: white;
+
 }
