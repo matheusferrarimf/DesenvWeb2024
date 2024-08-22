@@ -1,21 +1,10 @@
 li {
 list-style: none;
+margin:5px 5px;
 }
 
-.pri {
-    background-color: aqua;
-    border:solid 5px;
-    border-radius: 10px;
-}
-
-.seg {
-    background-color: gray;
-    border:solid 5px;
-    border-radius: 10px;
-}
-
-.terc {
-    background-color: gray;
+.pri, .seg, .terc {
+    background-color: white;
     border:solid 5px;
     border-radius: 10px;
 }
@@ -29,28 +18,18 @@ list-style: none;
 
 .conteudo {
     display: flex;
-    padding: 20% 30% 30% 40%;
+    padding: 10% 40%;
 }
 
 fieldset {
-    border:none;
+    border: none;
 }
 
-.pri:hover {
-    background-color: red;
+.pri:hover, .seg:hover, .terc:hover {
+    background-color: gray;
     color: black;
 }
 
-.seg:hover {
-    background-color: red;
-    color: black;
-}
-
-.terc:hover {
-    background-color: red;
-    color: black;
-    
-}
 
 .botoes {
   text-align: center;
@@ -59,8 +38,12 @@ fieldset {
   font-size: 16px;
 }
 
-.botoes:hover {
-  background-color: #04AA6D; /* Green */
+.btn_1:hover {
+  background-color: #04AA6D; 
   color: white;
-
 }
+
+.btn_2:hover {
+    background-color: hsl(0, 95%, 34%); 
+    color: white;
+  }
