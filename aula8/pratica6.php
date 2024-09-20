@@ -4,21 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabela Faculdade</title>
-    <style>
-        table {
-            width: 50%;
-            border-collapse: collapse;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid #000;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
 
@@ -42,7 +27,7 @@
                 echo "<td>".$materia[1]."</td>";
                 echo "<td>".$materia[2]."</td>";
                 echo "</tr>";
-            }
+            };
         ?>
     </table>
 
