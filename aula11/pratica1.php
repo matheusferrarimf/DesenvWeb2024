@@ -11,8 +11,12 @@ try {
 
         $termoBusca = $_POST["campo_primeiro_nome"];
 
-        $result = pg_query($dbconn,"SELECT * FROM TBPESSOA WHERE PESNOME LIKE '%$termoBusca'");
+        $result = pg_query($dbconn,"SELECT * FROM TBPESSOA WHERE PESNOME ILIKE '%$termoBusca%'");
 
+        $row = pg_fetch_array($result);
+        if (!$row){
+            echo "Nada Encontrado";
+        }
         while ($row = pg_fetch_array($result)) {
             echo print_r($row). "<br>";
         }
