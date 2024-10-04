@@ -13,7 +13,7 @@ try {
 
         $result = pg_query($dbconn,"SELECT * FROM TBPESSOA WHERE PESNOME ILIKE '%$termoBusca%'");
 
-        $row = pg_fetch_array($result);
+        $row = pg_num_rows($result);
         if (!$row){
             echo "Nada Encontrado";
         }
