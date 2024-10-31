@@ -10,6 +10,8 @@ $conexaoBd->setPassword("postgres");
 
 if(!$conexaoBd-> conectar()){
     echo "falha ao conectar";
+} else {
+    echo "conectado com sucesso";
 };
 
 ?>
