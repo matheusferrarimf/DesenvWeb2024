@@ -7,6 +7,11 @@ class conexaoBd {
         private $dbconn;
         private $dataBase;
         
+        public function __construct()
+        {
+            
+        }
+
         public function setHost($host){
             $this->host = ($host);
 
@@ -47,7 +52,16 @@ class conexaoBd {
                                "user=".$this->userName.
                                "password=".$this->password);
         }
+
+        public function getInternalConnection() {
+            return $this->dbconn;
+        }
 }
+
+
+
+
+
 
 
 
