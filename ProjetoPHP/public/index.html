@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Avaliação</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="content-container">
+        <!-- Tela do Formulário -->
+        <div id="formularioContainer">
+            <h1>Avaliação de Serviços</h1>
+            <p>Sua avaliação espontânea é anônima, nenhuma informação pessoal é solicitada ou armazenada.</p>
+            
+            <form id="avaliacaoForm">
+                <div id="perguntasContainer">
+                    <!-- Perguntas dinâmicas serão carregadas aqui -->
+                </div>
+
+                <div class="submit-container">
+                    <button type="button" class="submit-button" onclick="submitForm()">Enviar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Tela de Agradecimento -->
+        <div id="agradecimentoContainer" style="display: none;">
+            <h1>Obrigado pela sua Avaliação!</h1>
+            <p>O Hospital Regional Alto Vale (HRAV) agradece sua resposta, ela é muito importante para nós.</p>
+            <p>Você será redirecionado em <span id="countdown">5</span> segundos...</p>
+        </div>
+    </div>
+
+    <script src="../js/salvarDados.js"></script>
+    <script>
+        function carregarPerguntas() {
+            fetch('../src/controllers/getPerguntas.php')
+                .then(response => response.json())
+                .then(perguntas => {
+                    const container = document.getElementById('perguntasContainer');
+                    container.innerHTML = '';
+
+                    if (perguntas.length === 0) {
+                        container.innerHTML = '<p>Não há perguntas disponíveis no momento.</p>';
+                        return;
+                    }
+
+                    perguntas.forEach(pergunta => {
+                        const perguntaDiv = document.createElement('div');
+                        perguntaDiv.className = 'question-container';
+                        perguntaDiv.innerHTML = `
+                            <p class="question-title">${pergunta.texto_pergunta}</p>
+                            <div class="scale-button-container" data-id="${pergunta.id_pergunta}">
+                                ${[...Array(11).keys()].map(
+                                    n => `<button type="button" class="scale-button" onclick="selecionarNota(this, ${n}, ${pergunta.id_pergunta})">${n}</button>`
+                                ).join('')}
+                            </div>
+                        `;
+                        container.appendChild(perguntaDiv);
+                    });
+                })
+                .catch(error => {
+                    document.getElementById('perguntasContainer').innerHTML = '<p>Erro ao carregar perguntas. Tente novamente mais tarde.</p>';
+                });
+        }
+
+        function selecionarNota(button, nota, idPergunta) {
+            const buttons = button.parentElement.querySelectorAll('.scale-button');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            button.classList.add('selected');
+        }
+
+        function submitForm() {
+            console.log("Iniciando envio do formulário...");
+
+            const perguntas = document.querySelectorAll('.question-container');
+            let formularioValido = true;
+
+            perguntas.forEach(pergunta => {
+                const notaSelecionada = pergunta.querySelector('.scale-button.selected');
+                const idPergunta = pergunta.querySelector('.scale-button-container').getAttribute('data-id');
+
+                if (notaSelecionada && idPergunta) {
+                    const valorNota = parseInt(notaSelecionada.innerText);
+                    salvarNota(valorNota, idPergunta); // Função para enviar a resposta
+                } else {
+                    formularioValido = false;
+                }
+            });
+
+            if (formularioValido) {
+                exibirAgradecimento(); // Mostra a tela de agradecimento
+            } else {
+                alert('Por favor, responda todas as perguntas antes de enviar.');
+            }
+        }
+
+        function exibirAgradecimento() {
+            // Exibir tela de agradecimento
+            document.getElementById('formularioContainer').style.display = 'none';
+            document.getElementById('agradecimentoContainer').style.display = 'block';
+
+            // Iniciar contagem regressiva
+            let countdown = 5;
+            const countdownElement = document.getElementById('countdown');
+            const timer = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+
+                if (countdown <= 0) {
+                    clearInterval(timer);
+                    window.location.href = window.location.href; // Redireciona para a mesma página
+                }
+            }, 1000);
+        }
+
+        window.onload = carregarPerguntas;
+    </script>
+</body>
+</html>
