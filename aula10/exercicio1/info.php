@@ -6,10 +6,10 @@ if (!isset($_SESSION["username"])) {
     exit();
 }
 
-// Atualiza a hora da última requisição
+
 $_SESSION["last_request"] = date("Y-m-d H:i:s");
 
-// Calcula o tempo de sessão
+
 $session_start = strtotime($_SESSION["start_time"]);
 $current_time = strtotime($_SESSION["last_request"]);
 $session_duration = $current_time - $session_start;
