@@ -2,14 +2,13 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Armazena os dados do usuário na sessão
     $_SESSION["username"] = $_POST["username"];
     $_SESSION["password"] = $_POST["password"];
     $_SESSION["start_time"] = date("Y-m-d H:i:s");
     $_SESSION["last_request"] = $_SESSION["start_time"];
 
-    // Redireciona para a página de informações da sessão
-    header("Location: session_info.php");
+    
+    header("Location: info.php");
     exit();
 }
 ?>
